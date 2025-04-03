@@ -7,8 +7,17 @@ import errors from "./middlewares/errors.js"
 const {errorMiddleware}=errors;//bcz of default export
 
 import cookieParser from "cookie-parser"
+import createDummyUser from "./seeders/seedUser.js";
+import { createGroupChats, createMessagesInChat, createSingleChats } from "./seeders/seedChat.js";
+import { createGroupChat } from "./controllers/chatController.js";
 
 connectDB();
+
+// createDummyUser(10)
+// createSingleChats(10);
+// createGroupChats(10)
+
+// createMessagesInChat("67ee3bbce9e502e10b7abb2d",50)
 
 const app=express();
 
@@ -69,5 +78,9 @@ If an error is passed into next(), Express skips all normal middleware and jumps
 
 next(err) bypasses normal middleware and goes straight to the error-handling middleware.
 Error-handling middleware must be defined at the end of all routes.
+
+
+
+@4:10:00 - part-2 
 
 */

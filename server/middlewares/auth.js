@@ -16,6 +16,7 @@ const isAuthenticated=async (req,res, next)=>{
     const decodedData=jwt.verify(token, process.env.JWT_SECRET);
     // console.log(decodedData)
     req.userId=decodedData._id;
+    // console.log(req.userId)
     next();
 }
 

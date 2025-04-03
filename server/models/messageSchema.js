@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const {Schema, model, models}=mongoose;
+const {Schema, model, models, Types}=mongoose;
 
 /*models is internal object in mongoose that holds all created Model
 
