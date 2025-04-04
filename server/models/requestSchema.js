@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const {Schema, model, models}=mongoose;
+const {Schema, model, models, Types}=mongoose;
 const requestSchema = new Schema({
     status:{
         type:String,

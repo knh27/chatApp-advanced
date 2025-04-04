@@ -44,14 +44,15 @@ export const createGroupChats = async (numChats) => {
                 if (!members.includes(randomUser)) {
                     members.push(randomUser);
                 }
-            }
-
-            const chat = Chat.create({
+                const chat = Chat.create({
                 groupChat: true,
                 name: faker.lorem.words(1),
                 members,
                 creator: members[0]
             })
+            }
+
+            
         }
         await Promise.all(chatsPromise)
         console.log("chats created successfully");

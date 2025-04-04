@@ -1,4 +1,4 @@
-import { body, validationResult, check } from "express-validator";
+import { body, validationResult, check, param } from "express-validator";
 import errors from "../middlewares/errors.js";
 const {ErrorHandler}=errors;
 
@@ -34,6 +34,35 @@ const newGroupValidator=()=>[
 ]
 
 
+const sendRequestValidator=()=>[
+    body("receiverId", "Enter user ID ").notEmpty(),
+]
 
 
-export {registerValidator, validateHandler,loginValidator,newGroupValidator}
+const acceptRequestValidator=()=>[
+    body("requestId", "Enter Request ID").notEmpty(),
+    body("accept", "add Accept")
+        .notEmpty()
+        .withMessage("Add Accept ")
+        .isBoolean()
+        .withMessage("Accept should be boolean")
+    
+]
+
+
+const adminLoginValidator=()=>[
+    body("secretKey", "enter secret key").notEmpty(),
+]
+
+
+export {
+    registerValidator, 
+    validateHandler,
+    loginValidator,
+    newGroupValidator,
+    sendRequestValidator,
+    acceptRequestValidator,
+    adminLoginValidator,
+
+    
+}

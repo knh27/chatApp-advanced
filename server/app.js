@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser"
 import createDummyUser from "./seeders/seedUser.js";
 import { createGroupChats, createMessagesInChat, createSingleChats } from "./seeders/seedChat.js";
 import { createGroupChat } from "./controllers/chatController.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 connectDB();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res)=>res.send("hi from server"));
 
 app.use("/user",userRouter )
 app.use("/chat",chatRouter )
+app.use("/admin", adminRouter);
 
 app.use(errorMiddleware)
 
