@@ -21,56 +21,54 @@ const isAuthenticated=async (req,res, next)=>{
 }
 
 
-// const adminOnly=async (req,res, next)=>{
+const adminOnly=async (req,res, next)=>{
 
-//     const token=req.cookies["admin-token"];
-//     if(!token) return next(new ErrorHandler("only admin access this route", 401));
+    const token=req.cookies["admin-token"];
+    // console.log(token)
+    if(!token) return next(new ErrorHandler("only admin access this route", 401));
 
-//     const adminSecretKey=jwt.verify(token, process.env.JWT_SECRET);
+    const adminSecretKey=jwt.verify(token, process.env.ADMIN_SECRET_KEY);
 
-//     const isMatched=((process.env.ADMIN_SECRET_KEY || "password") === adminSecretKey)
-
-//     if(!isMatched) return next(new ErrorHandler("invalid admin key", 404));
+    if(!(adminSecretKey===process.env.ADMIN_SECRET_KEY)) return next(new ErrorHandler("invalid admin key", 404));
     
-//     next();
-// }
+    next();
+}
 
 
 
 
-const adminOnly = async (req, res, next) => {
-    console.log(process.env.ADMIN_SECRET_KEY)
-    try {
-        const token = req.cookies["admin-token"];
-        if (!token) {
-            return next(new ErrorHandler("Only admin can access this route", 401));
-        }
+// const adminOnly = async (req, res, next) => {
+//     console.log(process.env.ADMIN_SECRET_KEY)
+//     try {
+//         const token = req.cookies["admin-token"];
+//         if (!token) {
+//             return next(new ErrorHandler("Only admin can access this route", 401));
+//         }
 
-        // Verify JWT Token
-        let decoded;
-        try {
-            decoded = jwt.verify(token, process.env.JWT_SECRET);
-        } catch (error) {
-            return next(new ErrorHandler("Invalid or expired token", 403));
-        }
+//         // Verify JWT Token
+//         let decoded;
+//         try {
+            
+//             decoded = jwt.verify(token, process.env.ADMIN_SECRET_KEY);
+//             console.log(decoded, "authjs")
+//         } catch (error) {
+//             return next(new ErrorHandler("Invalid or expired token", 403));
+//         }
 
-        // Ensure ADMIN_SECRET_KEY exists
-        if (!process.env.ADMIN_SECRET_KEY) {
-            return next(new ErrorHandler("Server misconfiguration: Missing ADMIN_SECRET_KEY", 500));
-        }
+//         // Compare admin keys securely
+//         const isMatched = String(decoded.adminSecretKey) === String(process.env.ADMIN_SECRET_KEY);
+//         console.log(isMatched ,"authjs")
 
-        // Compare admin keys securely
-        const isMatched = String(decoded.adminSecretKey) === String(process.env.ADMIN_SECRET_KEY);
+//         if (!isMatched) {
+//             return next(new ErrorHandler("Invalid admin key", 403));
+//         }
 
-        if (!isMatched) {
-            return next(new ErrorHandler("Invalid admin key", 403));
-        }
-
-        next();
-    } catch (error) {
-        next(error);
-    }
-};
+//         next();
+//     } catch (error) {
+//         console.log(err)
+//         next(error);
+//     }
+// };
 
 
 export {isAuthenticated, adminOnly}

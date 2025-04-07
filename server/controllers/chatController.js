@@ -213,14 +213,17 @@ const leaveGroup = tryCatch(async (req, res, next) => {
 const sendAttachments = tryCatch(async (req, res, next) => {
     const { chatID } = req.body;
     // console.log(req.body.userId) fucking non-sense by me
+    const files = req.files || []; 
+    if (files.length < 1) return next(new ErrorHandler("provide attachement", 400));
+    if(files.lenght>5) return next(new ErrorHandler("files cannot be sent more than 5", 400))
+
     const [chat, me] = await Promise.all([Chat.findById(chatID), User.findById(req.userId, "name")])
     // console.log(me)
 
     if (!chat) return next(new ErrorHandler("Chat not found", 404))
-    const files = req.files || [];
+    
 
-    if (files.length < 1) return next(new ErrorHandler("provide attachement", 400));
-
+   
     const attachments = []
 
 

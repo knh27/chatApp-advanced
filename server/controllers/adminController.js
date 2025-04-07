@@ -111,13 +111,14 @@ export const getAllMessages=tryCatch(async(req, res)=>{
 export const adminLogin=tryCatch(async(req, res, next)=>{
 
     const {secretKey}=req.body;
+    console.log(secretKey, "adminLoagin")
 
-    const adminSecretKey="password";
-    const isMatched=(secretKey===adminSecretKey);
+    const isMatched=(secretKey===process.env.ADMIN_SECRET_KEY);
+
     if(!isMatched){
         return next(new ErrorHandler("Invalid key", 401))
     }
-    const token=jwt.sign(secretKey, process.env.JWT_SECRET);
+    const token=jwt.sign(secretKey, process.env.ADMIN_SECRET_KEY);
 
     return res.status(200).cookie("admin-token", token, {
         maxAge: 15 * 60 * 1000,

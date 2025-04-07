@@ -17,7 +17,7 @@ const registerValidator=()=>[
     body("username", " Enter Username").notEmpty(),
     body("bio", "  Enter Bio").notEmpty(),
     body("password", " Enter Password").notEmpty(),
-    check("avatar", " Upload Avatar").notEmpty(),
+    // check("avatar", " Upload Avatar").notEmpty(),
 ]
 const loginValidator=()=>[
     body("username", " Enter Username").notEmpty(),

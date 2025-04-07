@@ -31,8 +31,12 @@ export const createAndSendToken = (res, user, code, message) => {
 }
 
 
-export const createUser = async (req, res) => {
+export const createUser =tryCatch( async (req, res) => {
     const { name, username, password, bio, avatar = { public_id: "abcd", url: "abc" } } = req.body;
+
+    const file=req.file;
+    console.log(file)
+    if(!file) return next(new ErrorHandler("uplaod avatar", 400));
 
     const newUser = await User.create({
         name,
@@ -49,7 +53,7 @@ export const createUser = async (req, res) => {
     })
 
 }
-
+)
 
 export const login = tryCatch(
     async (req, res, next) => {

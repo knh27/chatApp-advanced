@@ -21,7 +21,7 @@ adminRouter.post("/logout", adminLogout);
 //only logged in admin can access below routes
 adminRouter.use(adminOnly);
 
-adminRouter.get("/");
+// adminRouter.get("/");
 
 adminRouter.get("/users", getAllUsers);
 
